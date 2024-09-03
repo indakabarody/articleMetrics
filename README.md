@@ -1,6 +1,6 @@
-# DOI in Summary
+# Article Metrics
 
-This plugin was built with the purpose of facilitating the visualization of the DOI (Digital Object Identifier) in the summary of the issues of a journal.
+This plugin was built with the purpose of facilitating the visualization of the abstract view, article download and DOI (Digital Object Identifier) in the summary of the issues of a journal.
 
 # Compatibility
 
@@ -12,11 +12,11 @@ The latest release of this plugin is compatible with the following PKP applicati
 
 1. Enter the administration area of ​​your OJS/OPS website through the __Dashboard__.
 2. Navigate to `Settings`>` Website`> `Plugins`> `Upload a new plugin`.
-3. Under __Upload file__ select the file __doiInSummary.tar.gz__.
+3. Under __Upload file__ select the file __articleMetrics.tar.gz__.
 4. Click __Save__ and the plugin will be installed on your website.
 
 # License
 
 __This plugin is licensed under the GNU General Public License v3__
 
-__Copyright (c) 2015-2023 Lepidus Tecnologia__
+__Copyright (c) 2024 Indaka Barody__

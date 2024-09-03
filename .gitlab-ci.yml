@@ -1,8 +1,0 @@
-variables:
-    PLUGIN_NAME : 'doiInSummary'
-
-include:
-  - project: 'documentacao-e-tarefas/modelosparaintegracaocontinua'
-    ref: main
-    file:
-      - 'templates/groups/pkp_plugin.yml'
