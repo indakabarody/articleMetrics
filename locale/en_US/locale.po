@@ -34,3 +34,15 @@ msgstr "Display Author Country"
 
 msgid "plugins.generic.articleMetrics.displayAuthorOrcid"
 msgstr "Display Author ORCID"
+
+msgid "plugins.generic.articleMetrics.abstractView"
+msgstr "Abstract view"
+
+msgid "plugins.generic.articleMetrics.abstractViews"
+msgstr "Abstract views"
+
+msgid "plugins.generic.articleMetrics.download"
+msgstr "Download"
+
+msgid "plugins.generic.articleMetrics.downloads"
+msgstr "Downloads"

@@ -34,3 +34,15 @@ msgstr "Tampilkan Negara Penulis"
 
 msgid "plugins.generic.articleMetrics.displayAuthorOrcid"
 msgstr "Tampilkan ORCID Penulis"
+
+msgid "plugins.generic.articleMetrics.abstractView"
+msgstr "Abstrak dilihat"
+
+msgid "plugins.generic.articleMetrics.abstractViews"
+msgstr "Abstrak dilihat"
+
+msgid "plugins.generic.articleMetrics.download"
+msgstr "Unduhan"
+
+msgid "plugins.generic.articleMetrics.downloads"
+msgstr "Unduhan"

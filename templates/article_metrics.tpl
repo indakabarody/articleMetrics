@@ -1,4 +1,4 @@
-<div id="doi_article-{$article->getId()}" class='articleMetrics'>
+<div id="doi_article-{$article->getId()}" class='articleMetrics' style="display: none;">
     <div class="authors" style="margin-bottom: 5px;">
         {foreach from=$article->getAuthors() item=author name=authorList}
             <div class="consent">
@@ -24,18 +24,45 @@
     </div>
     {assign var=galleys value=$article->getGalleys()}
     {if $displayAbstractViews}
-        <img src="https://i.ibb.co.com/4sq7yLG/ico2.png"> {translate key="article.abstract"} views: {$article->getViews()} times
+        <img src="https://i.ibb.co.com/K592vF7/ico2.png"> {if $article->getViews() > 1}{translate key="plugins.generic.articleMetrics.abstractViews"}{else}{translate key="plugins.generic.articleMetrics.abstractView"}{/if} : {$article->getViews()} times
         {if $displayDownloads && $galleys} | {/if}
     {/if}
     {if $displayDownloads && $galleys}
-        <img src="https://i.ibb.co.com/8zQW6X2/ico3.png">
-        {foreach from=$galleys item=galley name=galleyList} Downloads: {$galley->getViews()} times {if !$smarty.foreach.galleyList.last}|{/if}
+        <img src="https://i.ibb.co.com/ckyfpZR/ico3.png">
+        {foreach from=$galleys item=galley name=galleyList} {if $galley->getViews() > 1}{translate key="plugins.generic.articleMetrics.downloads"}{else}{translate key="plugins.generic.articleMetrics.download"}{/if}: {$galley->getViews()} times {if !$smarty.foreach.galleyList.last}|{/if}
         {/foreach}
     {/if}
     {if $displayDoi && $doiUrl}
-        <br>
-        <img src="https://ia-education.com/journal/public/site/icon-doi.png"> 
-        {translate key="plugins.pubIds.doi.readerDisplayName"}:
-        <a href="{$doiUrl}">{$doiUrl}</a>
+        {if $displayAbstractViews || ($displayDownloads && $galleys)} | {/if}
+        <img src="https://ia-education.com/journal/public/site/icon-doi.png"> DOI :
+        <a href="{$doiUrl}">
+            {$doiUrl}
+            <br>
+        </a>
     {/if}
 </div>
+
+<script>
+    (function() {ldelim}
+        var articleMetrics = document.getElementById('doi_article-{$article->getId()}');
+        if (articleMetrics) {ldelim}
+            var summary = articleMetrics.closest('.obj_article_summary');
+            if (summary) {ldelim}
+                var newAuthors = articleMetrics.querySelector('.authors');
+                var oldAuthors = summary.querySelector('.meta .authors');
+                if (oldAuthors && newAuthors) {ldelim}
+                    oldAuthors.parentNode.replaceChild(newAuthors, oldAuthors);
+                {rdelim}
+                
+                // Pindahkan elemen metrik ke luar wrapper articleMetrics
+                var parent = articleMetrics.parentNode;
+                while (articleMetrics.firstChild) {ldelim}
+                    parent.insertBefore(articleMetrics.firstChild, articleMetrics);
+                {rdelim}
+                parent.removeChild(articleMetrics);
+            {rdelim} else {ldelim}
+                articleMetrics.style.display = 'block';
+            {rdelim}
+        {rdelim}
+    {rdelim})();
+</script>
