@@ -9,28 +9,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2021-09-30T18:31:33+00:00\n"
 "PO-Revision-Date: 2021-09-30T18:31:33+00:00\n"
-"Language: \n"
+"Language: id_ID\n"
 
 msgid "plugins.generic.articleMetrics.displayName"
 msgstr "Article Metrics"
 
 msgid "plugins.generic.articleMetrics.description"
-msgstr "Shows the abstract views, article downloads and article DOI in the summary of issues and in the home page."
+msgstr "Menampilkan metrik abstract views, downloads artikel, dan DOI artikel pada ringkasan terbitan dan halaman beranda."
 
 msgid "plugins.generic.articleMetrics.displayAbstractViews"
-msgstr "Display Abstract Views"
+msgstr "Tampilkan Abstract Views"
 
 msgid "plugins.generic.articleMetrics.displayDownloads"
-msgstr "Display Downloads"
+msgstr "Tampilkan Downloads"
 
 msgid "plugins.generic.articleMetrics.displayDoi"
-msgstr "Display DOI"
+msgstr "Tampilkan DOI"
 
 msgid "plugins.generic.articleMetrics.displayAuthorAffiliation"
-msgstr "Display Author Affiliation"
+msgstr "Tampilkan Afiliasi Penulis"
 
 msgid "plugins.generic.articleMetrics.displayAuthorCountry"
-msgstr "Display Author Country"
+msgstr "Tampilkan Negara Penulis"
 
 msgid "plugins.generic.articleMetrics.displayAuthorOrcid"
-msgstr "Display Author ORCID"
+msgstr "Tampilkan ORCID Penulis"

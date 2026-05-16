@@ -42,10 +42,28 @@ class ArticleMetricsPlugin extends GenericPlugin
         $submission = $templateMgr->getTemplateVars('article');
         $doiUrl = $this->getArticleDoiUrl($submission);
 
-        if(!is_null($doiUrl)) {
-            $templateMgr->assign('doiUrl', $doiUrl);
-            $output .= $templateMgr->fetch($this->getTemplateResource('article_metrics.tpl'));
-        }
+        $request = Application::get()->getRequest();
+        $context = $request->getContext();
+        $contextId = $context ? $context->getId() : CONTEXT_ID_NONE;
+
+        $displayAbstractViews = $this->getSetting($contextId, 'displayAbstractViews') !== null ? $this->getSetting($contextId, 'displayAbstractViews') : true;
+        $displayDownloads = $this->getSetting($contextId, 'displayDownloads') !== null ? $this->getSetting($contextId, 'displayDownloads') : true;
+        $displayDoi = $this->getSetting($contextId, 'displayDoi') !== null ? $this->getSetting($contextId, 'displayDoi') : true;
+        $displayAuthorAffiliation = $this->getSetting($contextId, 'displayAuthorAffiliation') !== null ? $this->getSetting($contextId, 'displayAuthorAffiliation') : true;
+        $displayAuthorCountry = $this->getSetting($contextId, 'displayAuthorCountry') !== null ? $this->getSetting($contextId, 'displayAuthorCountry') : true;
+        $displayAuthorOrcid = $this->getSetting($contextId, 'displayAuthorOrcid') !== null ? $this->getSetting($contextId, 'displayAuthorOrcid') : true;
+
+        $templateMgr->assign(array(
+            'doiUrl' => $doiUrl,
+            'displayAbstractViews' => $displayAbstractViews,
+            'displayDownloads' => $displayDownloads,
+            'displayDoi' => $displayDoi,
+            'displayAuthorAffiliation' => $displayAuthorAffiliation,
+            'displayAuthorCountry' => $displayAuthorCountry,
+            'displayAuthorOrcid' => $displayAuthorOrcid
+        ));
+
+        $output .= $templateMgr->fetch($this->getTemplateResource('article_metrics.tpl'));
     }
 
     private function getArticleDoiUrl($article): ?string
@@ -80,5 +98,53 @@ class ArticleMetricsPlugin extends GenericPlugin
     public function getInstallSitePluginSettingsFile()
     {
         return $this->getPluginPath() . '/settings.xml';
+    }
+
+    public function getActions($request, $verb) {
+        $router = $request->getRouter();
+        import('lib.pkp.classes.linkAction.request.AjaxModal');
+        return array_merge(
+            $this->getEnabled() ? array(
+                new LinkAction(
+                    'settings',
+                    new AjaxModal(
+                        $router->url($request, null, null, 'manage', null, array('verb' => 'settings', 'plugin' => $this->getName(), 'category' => 'generic')),
+                        $this->getDisplayName()
+                    ),
+                    __('manager.plugins.settings'),
+                    null
+                ),
+            ) : array(),
+            parent::getActions($request, $verb)
+        );
+    }
+
+    public function manage($args, $request) {
+        switch ($request->getUserVar('verb')) {
+            case 'settings':
+                $context = $request->getContext();
+                $contextId = $context ? $context->getId() : CONTEXT_ID_NONE;
+                AppLocale::requireComponents(LOCALE_COMPONENT_APP_COMMON,  LOCALE_COMPONENT_PKP_MANAGER);
+                $templateMgr = TemplateManager::getManager($request);
+
+                $this->import('ArticleMetricsSettingsForm');
+                $form = new ArticleMetricsSettingsForm($this, $contextId);
+
+                if ($request->getUserVar('save')) {
+                    $form->readInputData();
+                    if ($form->validate()) {
+                        $form->execute();
+                        $notificationManager = new NotificationManager();
+                        $notificationManager->createTrivialNotification($request->getUser()->getId(), NOTIFICATION_TYPE_SUCCESS, array('contents' => __('common.changesSaved')));
+                        return new JSONMessage(true);
+                    } else {
+                        return new JSONMessage(true, $form->fetch($request));
+                    }
+                } else {
+                    $form->initData();
+                    return new JSONMessage(true, $form->fetch($request));
+                }
+        }
+        return parent::manage($args, $request);
     }
 }

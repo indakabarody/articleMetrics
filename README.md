@@ -1,7 +1,15 @@
 # Article Metrics
 
-This plugin was built with the purpose of facilitating the visualization of the abstract view, article download and DOI (Digital Object Identifier) in the summary of the issues of a journal.
+This plugin was built with the purpose of facilitating the visualization of abstract views, article downloads, and DOI (Digital Object Identifier) in the summary of the issues of a journal.
 
+In version 2.0.0.0, new features were introduced to allow displaying author affiliations, countries, and ORCID on the article summary, with configurable settings available in the plugin management area. The plugin also robustly displays metrics even when the DOI is not available.
+
+## Features
+
+- Display abstract views and galleys downloads.
+- Display DOI URL.
+- Display author names, affiliations, countries, and ORCIDs.
+- All display options are configurable through the plugin's settings page.
 # Compatibility
 
 The latest release of this plugin is compatible with the following PKP applications:
