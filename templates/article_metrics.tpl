@@ -1,26 +1,32 @@
 <div id="doi_article-{$article->getId()}" class='articleMetrics' style="display: none;">
     <div class="authors" style="margin-bottom: 5px;">
-        {foreach from=$article->getAuthors() item=author name=authorList}
-            <div class="consent">
-                <b>{$author->getFullName()|escape}{if ($displayAuthorAffiliation && $author->getLocalizedAffiliation()) || ($displayAuthorCountry && ($author->getCountryLocalized() || $author->getCountry()))},{/if}</b>
-                {if $displayAuthorAffiliation && $author->getLocalizedAffiliation()}
-                    &nbsp;{$author->getLocalizedAffiliation()|escape}{if $displayAuthorCountry && ($author->getCountryLocalized() || $author->getCountry())},{/if}
-                {/if}
-                {if $displayAuthorCountry && $author->getCountryLocalized()}
-                    &nbsp;{$author->getCountryLocalized()|escape}
-                {elseif $displayAuthorCountry && $author->getCountry()}
-                    &nbsp;{$author->getCountry()|escape}
-                {/if}
-            </div>
-            {if $displayAuthorOrcid && $author->getOrcid()}
-                <div class="orcid">
-                    {$orcidIcon}
-                    <a href="{$author->getOrcid()|escape}" target="_blank">
-                        {$author->getOrcid()|escape}
-                    </a>
+        {if !$displayAuthorAffiliation && !$displayAuthorCountry}
+            {foreach from=$article->getAuthors() item=author name=authorList}
+                {$author->getFullName()|escape}{if !$smarty.foreach.authorList.last}, {/if}
+            {/foreach}
+        {else}
+            {foreach from=$article->getAuthors() item=author name=authorList}
+                <div class="consent">
+                    <b>{$author->getFullName()|escape}{if ($displayAuthorAffiliation && $author->getLocalizedAffiliation()) || ($displayAuthorCountry && ($author->getCountryLocalized() || $author->getCountry()))},{/if}</b>
+                    {if $displayAuthorAffiliation && $author->getLocalizedAffiliation()}
+                        &nbsp;{$author->getLocalizedAffiliation()|escape}{if $displayAuthorCountry && ($author->getCountryLocalized() || $author->getCountry())},{/if}
+                    {/if}
+                    {if $displayAuthorCountry && $author->getCountryLocalized()}
+                        &nbsp;{$author->getCountryLocalized()|escape}
+                    {elseif $displayAuthorCountry && $author->getCountry()}
+                        &nbsp;{$author->getCountry()|escape}
+                    {/if}
                 </div>
-            {/if}
-        {/foreach}
+                {if $displayAuthorOrcid && $author->getOrcid()}
+                    <div class="orcid">
+                        {$orcidIcon}
+                        <a href="{$author->getOrcid()|escape}" target="_blank">
+                            {$author->getOrcid()|escape}
+                        </a>
+                    </div>
+                {/if}
+            {/foreach}
+        {/if}
     </div>
     {assign var=galleys value=$article->getGalleys()}
     {if $displayAbstractViews}
@@ -37,8 +43,14 @@
         <img src="https://ia-education.com/journal/public/site/icon-doi.png"> DOI :
         <a href="{$doiUrl}">
             {$doiUrl}
-            <br>
         </a>
+    {/if}
+    {if $displayPublicationDate && $datePublished}
+        {if $displayAbstractViews || ($displayDownloads && $galleys) || ($displayDoi && $doiUrl)} | {/if}
+        {translate key="plugins.generic.articleMetrics.published"}: {$datePublished|date_format:"%Y-%m-%d"}
+    {/if}
+    {if ($displayDoi && $doiUrl) || ($displayPublicationDate && $datePublished) || $displayAbstractViews || ($displayDownloads && $galleys)}
+        <br>
     {/if}
 </div>
 

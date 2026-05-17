@@ -46,3 +46,9 @@ msgstr "Unduhan"
 
 msgid "plugins.generic.articleMetrics.downloads"
 msgstr "Unduhan"
+
+msgid "plugins.generic.articleMetrics.displayPublicationDate"
+msgstr "Tampilkan Tanggal Terbit"
+
+msgid "plugins.generic.articleMetrics.published"
+msgstr "Diterbitkan"

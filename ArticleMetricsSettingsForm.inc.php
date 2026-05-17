@@ -53,6 +53,7 @@ class ArticleMetricsSettingsForm extends Form {
 		$this->setData('displayAuthorAffiliation', $displayAuthorAffiliation !== null ? $displayAuthorAffiliation : true);
 		$this->setData('displayAuthorCountry', $displayAuthorCountry !== null ? $displayAuthorCountry : true);
 		$this->setData('displayAuthorOrcid', $plugin->getSetting($contextId, 'displayAuthorOrcid') !== null ? $plugin->getSetting($contextId, 'displayAuthorOrcid') : true);
+		$this->setData('displayPublicationDate', $plugin->getSetting($contextId, 'displayPublicationDate') !== null ? $plugin->getSetting($contextId, 'displayPublicationDate') : true);
 	}
 
 	/**
@@ -65,7 +66,8 @@ class ArticleMetricsSettingsForm extends Form {
 			'displayDoi',
 			'displayAuthorAffiliation',
 			'displayAuthorCountry',
-			'displayAuthorOrcid'
+			'displayAuthorOrcid',
+			'displayPublicationDate'
 		));
 	}
 
@@ -92,6 +94,7 @@ class ArticleMetricsSettingsForm extends Form {
 		$plugin->updateSetting($contextId, 'displayAuthorAffiliation', $this->getData('displayAuthorAffiliation') ? true : false, 'bool');
 		$plugin->updateSetting($contextId, 'displayAuthorCountry', $this->getData('displayAuthorCountry') ? true : false, 'bool');
 		$plugin->updateSetting($contextId, 'displayAuthorOrcid', $this->getData('displayAuthorOrcid') ? true : false, 'bool');
+		$plugin->updateSetting($contextId, 'displayPublicationDate', $this->getData('displayPublicationDate') ? true : false, 'bool');
 
 		parent::execute(...$functionArgs);
 	}

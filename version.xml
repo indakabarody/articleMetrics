@@ -9,7 +9,7 @@
 <version>
 	<application>articleMetrics</application>
 	<type>plugins.generic</type>
-	<release>2.0.0.0</release>
+	<release>2.0.1.0</release>
 	<date>2026-05-16</date>
 	<lazy-load>0</lazy-load>
 	<class>ArticleMetricsPlugin</class>

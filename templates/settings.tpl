@@ -16,6 +16,7 @@
 			{fbvElement type="checkbox" id="displayAuthorAffiliation" value="1" checked=$displayAuthorAffiliation label="plugins.generic.articleMetrics.displayAuthorAffiliation"}
 			{fbvElement type="checkbox" id="displayAuthorCountry" value="1" checked=$displayAuthorCountry label="plugins.generic.articleMetrics.displayAuthorCountry"}
 			{fbvElement type="checkbox" id="displayAuthorOrcid" value="1" checked=$displayAuthorOrcid label="plugins.generic.articleMetrics.displayAuthorOrcid"}
+			{fbvElement type="checkbox" id="displayPublicationDate" value="1" checked=$displayPublicationDate label="plugins.generic.articleMetrics.displayPublicationDate"}
 		{/fbvFormSection}
 	{/fbvFormArea}
 

@@ -46,3 +46,9 @@ msgstr "Download"
 
 msgid "plugins.generic.articleMetrics.downloads"
 msgstr "Downloads"
+
+msgid "plugins.generic.articleMetrics.displayPublicationDate"
+msgstr "Display Publication Date"
+
+msgid "plugins.generic.articleMetrics.published"
+msgstr "Published"

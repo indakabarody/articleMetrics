@@ -52,6 +52,14 @@ class ArticleMetricsPlugin extends GenericPlugin
         $displayAuthorAffiliation = $this->getSetting($contextId, 'displayAuthorAffiliation') !== null ? $this->getSetting($contextId, 'displayAuthorAffiliation') : true;
         $displayAuthorCountry = $this->getSetting($contextId, 'displayAuthorCountry') !== null ? $this->getSetting($contextId, 'displayAuthorCountry') : true;
         $displayAuthorOrcid = $this->getSetting($contextId, 'displayAuthorOrcid') !== null ? $this->getSetting($contextId, 'displayAuthorOrcid') : true;
+        $displayPublicationDate = $this->getSetting($contextId, 'displayPublicationDate') !== null ? $this->getSetting($contextId, 'displayPublicationDate') : true;
+
+        $publicationDate = null;
+        if (method_exists($submission, 'getCurrentPublication') && $submission->getCurrentPublication()) {
+            $publicationDate = $submission->getCurrentPublication()->getData('datePublished');
+        } elseif (method_exists($submission, 'getDatePublished') && $submission->getDatePublished()) {
+            $publicationDate = $submission->getDatePublished();
+        }
 
         $templateMgr->assign(array(
             'doiUrl' => $doiUrl,
@@ -60,7 +68,9 @@ class ArticleMetricsPlugin extends GenericPlugin
             'displayDoi' => $displayDoi,
             'displayAuthorAffiliation' => $displayAuthorAffiliation,
             'displayAuthorCountry' => $displayAuthorCountry,
-            'displayAuthorOrcid' => $displayAuthorOrcid
+            'displayAuthorOrcid' => $displayAuthorOrcid,
+            'displayPublicationDate' => $displayPublicationDate,
+            'datePublished' => $publicationDate
         ));
 
         $output .= $templateMgr->fetch($this->getTemplateResource('article_metrics.tpl'));
