@@ -42,10 +42,10 @@ msgid "plugins.generic.articleMetrics.abstractViews"
 msgstr "Abstrak dilihat"
 
 msgid "plugins.generic.articleMetrics.download"
-msgstr "Unduhan"
+msgstr "Unduhan PDF"
 
 msgid "plugins.generic.articleMetrics.downloads"
-msgstr "Unduhan"
+msgstr "Unduhan PDF"
 
 msgid "plugins.generic.articleMetrics.displayPublicationDate"
 msgstr "Tampilkan Tanggal Terbit"

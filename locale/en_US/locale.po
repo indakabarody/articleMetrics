@@ -42,10 +42,10 @@ msgid "plugins.generic.articleMetrics.abstractViews"
 msgstr "Abstract views"
 
 msgid "plugins.generic.articleMetrics.download"
-msgstr "Download"
+msgstr "PDF Download"
 
 msgid "plugins.generic.articleMetrics.downloads"
-msgstr "Downloads"
+msgstr "PDF Downloads"
 
 msgid "plugins.generic.articleMetrics.displayPublicationDate"
 msgstr "Display Publication Date"

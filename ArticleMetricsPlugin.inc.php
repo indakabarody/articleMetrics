@@ -63,6 +63,7 @@ class ArticleMetricsPlugin extends GenericPlugin
 
         $templateMgr->assign(array(
             'doiUrl' => $doiUrl,
+            'articleMetricsPluginUrl' => $request->getBaseUrl() . '/' . $this->getPluginPath(),
             'displayAbstractViews' => $displayAbstractViews,
             'displayDownloads' => $displayDownloads,
             'displayDoi' => $displayDoi,

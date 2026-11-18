@@ -29,27 +29,44 @@
         {/if}
     </div>
     {assign var=galleys value=$article->getGalleys()}
-    {if $displayAbstractViews}
-        <img src="https://i.ibb.co.com/K592vF7/ico2.png"> {if $article->getViews() > 1}{translate key="plugins.generic.articleMetrics.abstractViews"}{else}{translate key="plugins.generic.articleMetrics.abstractView"}{/if} : {$article->getViews()} times
-        {if $displayDownloads && $galleys} | {/if}
+    {assign var=hasPdfGalley value=false}
+    {if $galleys}
+        {foreach from=$galleys item=galley}
+            {if $galley->getLabel()|trim|lower == 'pdf'}
+                {assign var=hasPdfGalley value=true}
+            {/if}
+        {/foreach}
     {/if}
-    {if $displayDownloads && $galleys}
-        <img src="https://i.ibb.co.com/ckyfpZR/ico3.png">
-        {foreach from=$galleys item=galley name=galleyList} {if $galley->getViews() > 1}{translate key="plugins.generic.articleMetrics.downloads"}{else}{translate key="plugins.generic.articleMetrics.download"}{/if}: {$galley->getViews()} times {if !$smarty.foreach.galleyList.last}|{/if}
+    {if $displayAbstractViews}
+        <img src="{$articleMetricsPluginUrl|escape}/images/icon-views.png" alt=""> {if $article->getViews() > 1}{translate key="plugins.generic.articleMetrics.abstractViews"}{else}{translate key="plugins.generic.articleMetrics.abstractView"}{/if}: {$article->getViews()} times
+        {if $displayDownloads && $hasPdfGalley} | {/if}
+    {/if}
+    {if $displayDownloads && $hasPdfGalley}
+        <img src="{$articleMetricsPluginUrl|escape}/images/icon-downloads.png" alt="">
+        {assign var=isFirstPdf value=true}
+        {foreach from=$galleys item=galley}
+            {if $galley->getLabel()|trim|lower == 'pdf'}
+                {assign var=downloadCount value=$galley->getViews()}
+                {if !$isFirstPdf} | {/if}
+                <span class="article-pdf-downloads">
+                    {if $downloadCount > 1}{translate key="plugins.generic.articleMetrics.downloads"}{else}{translate key="plugins.generic.articleMetrics.download"}{/if}: {$downloadCount} times
+                </span>
+                {assign var=isFirstPdf value=false}
+            {/if}
         {/foreach}
     {/if}
     {if $displayDoi && $doiUrl}
-        {if $displayAbstractViews || ($displayDownloads && $galleys)} | {/if}
-        <img src="https://ia-education.com/journal/public/site/icon-doi.png"> DOI :
+        {if $displayAbstractViews || ($displayDownloads && $hasPdfGalley)} | {/if}
+        <img src="{$articleMetricsPluginUrl|escape}/images/icon-doi.png" alt="DOI"> DOI:
         <a href="{$doiUrl}">
             {$doiUrl}
         </a>
     {/if}
     {if $displayPublicationDate && $datePublished}
-        {if $displayAbstractViews || ($displayDownloads && $galleys) || ($displayDoi && $doiUrl)} | {/if}
+        {if $displayAbstractViews || ($displayDownloads && $hasPdfGalley) || ($displayDoi && $doiUrl)} | {/if}
         {translate key="plugins.generic.articleMetrics.published"}: {$datePublished|date_format:"%Y-%m-%d"}
     {/if}
-    {if ($displayDoi && $doiUrl) || ($displayPublicationDate && $datePublished) || $displayAbstractViews || ($displayDownloads && $galleys)}
+    {if ($displayDoi && $doiUrl) || ($displayPublicationDate && $datePublished) || $displayAbstractViews || ($displayDownloads && $hasPdfGalley)}
         <br>
     {/if}
 </div>
